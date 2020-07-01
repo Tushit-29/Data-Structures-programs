@@ -7,66 +7,40 @@ struct node
     struct node *next;
 };
 
-
 void push(struct node**, int);
 void pop(struct node**);
 int peek(struct node*);
-
-
 
 void push(struct node **s, int data)
 {
     struct node *n,*t;
     n = (struct node*)malloc(sizeof(struct node));
     n->item = data;
-    n->next = NULL;
-    if(*s==NULL)
-        *s = n;
-    else
-    {
-        t = *s;
-        while(t->next!=NULL)
-            t=t->next;
-        t->next = n;
-    }
+    n->next = *s;
+    *s = n;
 }
 
 void pop(struct node **s)
 {
-    struct node *t1,*t2;
+    struct node *n;
     if(*s==NULL)
         printf("\nUnderflow");
     else
     {
-      t1 = *s;
-      if((*s)->next==NULL)
-      {
-          *s = NULL;
-          free(t1);
-      }
-      else
-      {
-          while(t1->next!=NULL)
-          {
-              t2=t1;
-              t1=t1->next;
-          }
-          t2->next = NULL;
-          free(t1);
-      }
+        n = *s;
+        *s = n->next;
+        free(n);
     }
+
+
 }
 
 int peek(struct node *s)
 {
     if(s==NULL)
-        return -1;
+        printf("\n Stack is empty");
     else
-    {
-        while(s->next!=NULL)
-            s=s->next;
-        return(s->item);
-    }
+        printf("%d",s->item);
 }
 
 int menu()
@@ -85,7 +59,7 @@ int menu()
 main()
 {
     struct node *start = NULL;
-    int value,topValue;
+    int value;
 
     while(1)
     {
@@ -102,11 +76,7 @@ main()
             break;
 
         case 3:
-            topValue = peek(start);
-            if(topValue==-1)
-                printf("Stack is empty");
-            else
-                printf("Top element of stack is %d",topValue);
+            peek(start);
             break;
 
         case 4:
