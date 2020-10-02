@@ -30,7 +30,7 @@ struct Arry* createArray(int cap)
 void append(struct Arry *arr,int data)
 {
     if(arr->lastIndex+1==arr->capacity)
-        printf("\nOverflow");
+        printf("\nOverflow!");
     else
     {
         arr->lastIndex+=1;
